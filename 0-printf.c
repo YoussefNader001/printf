@@ -1,80 +1,110 @@
 #include "main.h"
-#include <stdarg.h>
-#include <unistd.h>
-
+void print_buffer(char buffer[], int *buff_ind);
 /**
- * _printf - Produces output according to a format.
- * @format: Format string with conversion specifiers.
- *
- * Return: The number of characters printed (excluding the null byte).
+ * _printf - Printf function
+ * @format: format.
+ * Return: Printed chars.
  */
 int _printf(const char *format, ...)
+
 {
-    va_list args;
-    int count = 0;
 
-    va_start(args, format);
+int i, printed = 0, printed_chars = 0;
 
-    while (*format)
-    {
-        if (*format == '%' && *(format + 1) != '\0')
-        {
-            format++; /* Move to the next character after '%' */
-            switch (*format)
-            {
-            case 'c':
-                count += _putchar(va_arg(args, int));
-                break;
-            case 's':
-                count += _puts(va_arg(args, char *));
-                break;
-            case '%':
-                count += _putchar('%');
-                break;
-            default:
-                count += _putchar('%');
-                count += _putchar(*format);
-                break;
-            }
-        }
-        else
-        {
-            count += _putchar(*format);
-        }
+int flags, width, precision, size, buff_ind = 0;
 
-        format++;
-    }
+va_list list;
 
-    va_end(args);
+char buffer[BUFF_SIZE];
 
-    return count;
-}
-/**
- * _putchar - Writes a character to stdout.
- * @c: The character to write.
- *
- * Return: On success, 1. On error, -1 is returned.
- */
-int _putchar(char c)
+if (format == NULL)
+
+return (-1);
+
+va_start(list, format);
+
+for (i = 0; format && format[i] != '\0'; i++)
+
 {
-    return write(1, &c, 1);
+
+if (format[i] != '%')
+
+{
+
+buffer[buff_ind++] = format[i];
+
+if (buff_ind == BUFF_SIZE)
+
+print_buffer(buffer, &buff_ind);
+
+/* write(1, &format[i], 1);*/
+
+printed_chars++;
+
 }
 
-/**
- * _puts - Writes a string to stdout.
- * @str: The string to write.
- *
- * Return: The number of characters written (excluding the null byte).
- */
-int _puts(char *str)
+else
+
 {
-    int count = 0;
 
-    while (*str)
-    {
-        count += _putchar(*str);
-        str++;
-    }
+print_buffer(buffer, &buff_ind);
 
-    return count;
+flags = get_flags(format, &i);
+
+width = get_width(format, &i, list);
+
+precision = get_precision(format, &i, list);
+
+size = get_size(format, &i);
+
+++i;
+
+printed = handle_print(format, &i, list, buffer,
+
+flags, width, precision, size);
+
+if (printed == -1)
+
+return (-1);
+
+printed_chars += printed;
+
+}
+
+}
+
+
+
+print_buffer(buffer, &buff_ind);
+
+
+
+va_end(list);
+
+
+
+return (printed_chars);
+
+}
+
+
+
+/**
+ * print_buffer - Prints the contents of the buffer if it exist
+ * @buffer: Array of chars
+ * @buff_ind: Index at which to add next char, represents the length.
+ */
+
+void print_buffer(char buffer[], int *buff_ind)
+
+{
+
+if (*buff_ind > 0)
+
+write(1, &buffer[0], *buff_ind);
+
+
+
+*buff_ind = 0;
+
 }
