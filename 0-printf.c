@@ -108,3 +108,75 @@ write(1, &buffer[0], *buff_ind);
 *buff_ind = 0;
 
 }
+#include "main.h"
+#include <stdarg.h>
+#include <unistd.h>
+
+/**
+ * _printf - Custom printf function
+ * @format: Format string
+ *
+ * Return: Number of characters printed (excluding null byte)
+ */
+int _printf(const char *format, ...)
+{
+    va_list args;
+    int count = 0;
+    const char *ptr;
+    char c;
+    char *str;
+
+    va_start(args, format);
+
+    for (ptr = format; *ptr != '\0'; ptr++)
+    {
+        if (*ptr == '%')
+        {
+            ptr++; /* Move to the next character after '%' */
+
+            switch (*ptr)
+            {
+            case 'c':
+                c = va_arg(args, int);
+                count += write(1, &c, 1);
+                break;
+            case 's':
+                str = va_arg(args, char *);
+                count += write(1, str, _strlen(str));
+                break;
+            case '%':
+                count += write(1, "%", 1);
+                break;
+            default:
+                count += write(1, "%", 1);
+                count += write(1, &(*ptr), 1);
+            }
+        }
+        else
+        {
+            count += write(1, &(*ptr), 1);
+        }
+    }
+
+    va_end(args);
+    return count;
+}
+
+/**
+ * _strlen - Calculate the length of a string
+ * @s: Input string
+ *
+ * Return: Length of the string
+ */
+int _strlen(const char *s)
+{
+    int len = 0;
+
+    while (*s != '\0')
+    {
+        len++;
+        s++;
+    }
+
+    return len;
+}
