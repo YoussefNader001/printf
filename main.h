@@ -64,7 +64,7 @@ typedef struct specifier
 {
     char *specifier;
     int (*f)(va_list, params_t);
-}specifier_t
+}specifier_t;
 
 int _puts(char *str);
 int _putchar(int c);
