@@ -90,7 +90,7 @@ int print_string(va_list ap, params_t * params){
  * Return: bytes printed
 */
 
-int print_percentage(va_list ap, params_t *params){
+int print_percent(va_list ap, params_t *params){
 
     (void)ap;
     (void)params;

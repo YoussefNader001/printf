@@ -37,7 +37,7 @@ int print_hex(va_list ap, params_t *params){
  * Return: bytes printed
 */
 
-int print_Hex(va_list ap, params_t *params){
+int print_HEX(va_list ap, params_t *params){
     unsigned long l;
     int c = 0;
     char *str;

@@ -45,7 +45,7 @@ int (*get_specifier(char* s))(va_list ap, params_t *params){
  * Return: the number of bytes printed
 */
 
-int get_print_func(char *s, va_list ap, params_t *params);
+int get_print_func(char *s, va_list ap, params_t *params)
 {
     int (*f)(va_list, params_t *)= get_specifier(s);
     if(f)
@@ -92,7 +92,7 @@ int get_modifier(char *s, params_t *params){
     return (i);
 }
 
-int get_width(char *s, params_t *params, va_list ap){
+char *get_width(char *s, params_t *params, va_list ap){
 
     int d = 0;
     if(*s == '*'){
