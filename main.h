@@ -11,7 +11,7 @@
 #define BUF_FLUSH -1
 
 #define NULL_STRING "(null)"
-#define PARAMS_INIT [0,0,0,0,0,0,0,0,0,0]
+#define PARAMS_INIT {0,0,0,0,0,0,0,0,0,0}
 
 #define CONVERT_LOWERCASE 1
 #define CONVERT_UNSIGNED 2
