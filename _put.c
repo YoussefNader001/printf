@@ -12,7 +12,7 @@ int _puts(char*str){
 
     while(*str)
         _putchar(*str++);
-    return (str-a)
+    return (str-a);
 }
 
 /**
@@ -32,6 +32,6 @@ int _putchar(int c){
         i = 0;
     }
     if(c != BUF_FLUSH)
-        buf(i++) = c;
+        buf[i++] = c;
     return (1);
 }

@@ -25,7 +25,7 @@ int _printf(const char *format, ...){
             continue;
         }
         start = p;
-        p++
+        p++;
         while(get_flag(p, &params)){
             p++;
         }

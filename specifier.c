@@ -53,7 +53,7 @@ int get_print_func(char *s, va_list ap, params_t *params)
     return 0;
 }
 
-int get_flag(char *s, va_list ap, params_t *params){
+int get_flag(char *s, params_t *params){
     int i = 0;
 
     switch(*s)
